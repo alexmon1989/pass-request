@@ -1,4 +1,5 @@
 .idea
 *.xls
+uploads/*
 
 application/config/database.php

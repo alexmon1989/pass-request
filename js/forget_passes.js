@@ -1,13 +1,13 @@
 function SendPassData(){ 
     var str = $("#form_pass").serialize();
-    $.post("/pass_request/admin/forget_passes/add_pass/", str, function(data) {
+    $.post("admin/forget_passes/add_pass/", str, function(data) {
             $("#info_pass").html(data);
             $("#modal_body").scrollTop(300);
         });              
 }
 
 function Filter(value){
-    $.get("/pass_request/admin/forget_passes/set_filter/", {filter: value}, function(data) {
+    $.get("admin/forget_passes/set_filter/", {filter: value}, function(data) {
                     window.location.reload();
                 });             
 }
@@ -17,7 +17,7 @@ function TakePass(){
     var password = $("#dialog_take_pass_password").val();
     var cct = $.cookie("csrf_cookie_name");
     
-    $.post("/pass_request/admin/forget_passes/take_pass/", 
+    $.post("admin/forget_passes/take_pass/",
           {
               'forget_pass_id' : forget_pass_id,
               'password' : password,
@@ -41,7 +41,7 @@ function LostPass()
     var password = $("#password").val();
     var cct = $.cookie("csrf_cookie_name");
     
-    $.post("/pass_request/admin/forget_passes/lost_pass/", 
+    $.post("admin/forget_passes/lost_pass/",
           {
               'forget_pass_id' : forget_pass_id,
               'password' : password,

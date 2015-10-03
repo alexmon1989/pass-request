@@ -1,27 +1,27 @@
 function SendEditData() {
         var str = $("#form_edit").serialize();
-        $.post("/pass_request/admin/service/edit_employee/", str, function(data) {
+        $.post("admin/service/edit_employee/", str, function(data) {
             $("#info_edit").html(data);
             });
     }
     
 function SendEditServiceData() {
         var str = $("#form_edit_service").serialize();
-        $.post("/pass_request/admin/service/edit_service/", str, function(data) {
+        $.post("admin/service/edit_service/", str, function(data) {
             $("#info_edit_service").html(data);
             });
     }
     
 function SendAddEmployeeData(){
         var str = $("#form_add_employee").serialize();
-        $.post("/pass_request/admin/service/add_employee/", str, function(data) {
+        $.post("admin/service/add_employee/", str, function(data) {
             $("#info_add_employee").html(data);
             });
         }
         
 function SendAddServiceData(){
         var str = $("#form_add_service").serialize();
-        $.post("/pass_request/admin/service/add_service/", str, function(data) {
+        $.post("admin/service/add_service/", str, function(data) {
             $("#info_add_service").html(data);
             });
         }
@@ -64,7 +64,7 @@ function ajaxFileUpload()
     $.ajaxFileUpload
     (
         {
-            url:'/pass_request/admin/requests/doAjaxFileUpload',
+            url:'admin/requests/doAjaxFileUpload',
             secureuri:false,
             fileElementId:'photo',
             dataType: 'json',
@@ -102,9 +102,9 @@ function ajaxFileUpload()
  */
 function OldPhoto(){
     var photo_id = $("#photo_id").val();
-    var src = '/pass_request/images/photo_missed.jpeg';
+    var src = 'images/photo_missed.jpeg';
     if (photo_id != "0")
-        src = '/pass_request/photos/get_image/' + photo_id;
+        src = 'photos/get_image/' + photo_id;
     return src;
 }
 
@@ -122,7 +122,7 @@ $(function() {
     // Изображение
     var img_url = $("#photo_filename").val();
     if (img_url != ""){
-        img_url = "/pass_request/uploads/" + img_url;
+        img_url = "/uploads/" + img_url;
         $("#photo_img").attr("src", img_url);
         $("#cancel_photo_btn_div").html('<br /><button id="cancel_photo_btn" onclick="DoNotUseThisPhoto()" class="btn btn-primary"><i class="icon-remove icon-white"></i> Не використовувати це фото</button>');
     }

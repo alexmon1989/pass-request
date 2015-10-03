@@ -3,7 +3,7 @@
  */
 function GenerateReportExcel() {
     var str = $("#form_report").serialize();
-    $.post("/pass_request/admin/reports/generate_report_excel/", str, function(data) {
+    $.post("admin/reports/generate_report_excel/", str, function(data) {
         $("#info_pass").html(data);
         });
 }
@@ -13,7 +13,7 @@ function GenerateReportExcel() {
  */    
 function GenerateReport() {
     var str = $("#form_report").serialize();
-    $.post("/pass_request/admin/reports/generate_report/", str, function(data) {
+    $.post("admin/reports/generate_report/", str, function(data) {
         $("#report").html(data);
         $("#print").show();
     });

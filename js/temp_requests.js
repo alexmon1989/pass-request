@@ -1,6 +1,6 @@
 function Sort(order_by, method) {
     var cct = $.cookie("csrf_cookie_name");
-    $.post("/pass_request/admin/temp_requests/sort", 
+    $.post("/admin/temp_requests/sort",
         {
             'order_by': order_by,
             'method': method,
@@ -11,7 +11,6 @@ function Sort(order_by, method) {
         });
 }
 
-
 /**
  * Обработчик нажатия на кнопку "Змінити номер перепустки"
  */
@@ -21,7 +20,7 @@ function LostPass(id)
     var password = $("#lost_pass_password").val();
     var cct = $.cookie("csrf_cookie_name");
     
-    $.post("/pass_request/admin/temp_requests/lost_pass/", 
+    $.post("/admin/temp_requests/lost_pass/",
           {
               'id' : id,
               'new_pass_id' :  new_pass_id,
@@ -40,7 +39,7 @@ function TakePass(id){
     var password = $("#password").val();
     var cct = $.cookie("csrf_cookie_name");
     
-    $.post("/pass_request/admin/temp_requests/take_pass/", 
+    $.post("/admin/temp_requests/take_pass/",
           {
               'id' : id,
               'password' : password,

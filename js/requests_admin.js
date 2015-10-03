@@ -30,7 +30,7 @@ function ActivateStatusField(){
 */
 function SendPassFrom() { 
      var password = $("#password").val();
-     $.get("/pass_request/admin/requests/check_password/", {password: password}, function(data) {
+     $.get("admin/requests/check_password/", {password: password}, function(data) {
             if (data == "valid") {
                 $("#form_password").val(password);
                 $("#edit_form").submit();
@@ -48,9 +48,9 @@ function SendPassFrom() {
 function LostPass(request_id) { 
     var password = $("#dialog_lost_pass_password").val();
     var cct = $.cookie("csrf_cookie_name");
-    $.get("/pass_request/admin/requests/check_password/", {password: password}, function(data) {
+    $.get("admin/requests/check_password/", {password: password}, function(data) {
         if (data == "valid") {
-               $.post("/pass_request/admin/requests/lost_pass/", 
+               $.post("admin/requests/lost_pass/",
                 {
                     'request_id' : request_id,
                     'csrf_secure': cct
@@ -99,22 +99,22 @@ function ShowOnlyMyReqs(applicant_id){
     var checked = $("#show_only_my_reqs").attr("checked");
     var cct = $.cookie("csrf_cookie_name");    
     if (checked){        
-        $.post("/pass_request/admin/requests/set_applicant_id/", 
+        $.post("/admin/requests/set_applicant_id/",
                     {
                         'applicant_id' : applicant_id,
                         'csrf_secure': cct
                     }, 
                         function(data) { 
-                            window.location = '/pass_request/admin/requests/';
+                            window.location = 'admin/requests/';
                         }
                     );
     } else {
-        $.post("/pass_request/admin/requests/unset_applicant_id/", 
+        $.post("/admin/requests/unset_applicant_id/",
                     {
                         'csrf_secure': cct
                     }, 
                         function(data) { 
-                            window.location = '/pass_request/admin/requests/';
+                            window.location = 'admin/requests/';
                         }
                     );
       }
@@ -128,7 +128,7 @@ function FillPassForm() {
 
 function SendPassData() { 
         var str = $("#form_pass").serialize();
-        $.post("/pass_request/admin/requests/add_request", str, function(data) {
+        $.post("/admin/requests/add_request", str, function(data) {
                 $("#info_pass").html(data);
                 $("#modal_body").scrollTop(300);
             });              
@@ -147,7 +147,7 @@ function ajaxFileUpload()
     $.ajaxFileUpload
     (
         {
-            url:'/pass_request/admin/requests/doAjaxFileUpload',
+            url:'admin/requests/doAjaxFileUpload',
             secureuri:false,
             fileElementId:'photo',
             dataType: 'json',
@@ -272,7 +272,7 @@ $(function(){
     // Изображение
     var img_url = $("#photo_filename").val();
     if (img_url != ""){
-        img_url ="/pass_request/uploads/" + img_url;
+        img_url ="/uploads/" + img_url;
         $("#photo_img").attr("src", img_url);
         $("#cancel_photo_btn_div").html('<br /><button id="cancel_photo_btn" class="btn btn-danger" onclick="DoNotUseThisPhoto(); return false"><i class="icon-remove icon-white"></i> Не використовувати це фото</button>');
     }
@@ -284,14 +284,14 @@ function DoNotUseThisPhoto()
     var request_id = $("#request_id").val() * 1;
     
     // Ajax запрос на получение id фото
-    $.get('/pass_request/admin/requests/get_photo_id/' + request_id, 
+    $.get('admin/requests/get_photo_id/' + request_id,
          function(data){
              var photo_id = data * 1;
              // Назначаем URL изображения
              if (photo_id != 0)
-                var img_url = '/pass_request/photos/get_image/' + photo_id;
+                var img_url = 'photos/get_image/' + photo_id;
              else
-                var img_url = '/pass_request/images/photo_missed.jpeg';
+                var img_url = 'images/photo_missed.jpeg';
              $("#photo_img").attr("src", img_url);
              // Очищаем photo_filename
              $('#photo_filename').val('');
@@ -305,7 +305,7 @@ function DoNotUseThisPhoto()
  */
 function SaveRequestData(){
     var str = $("#edit_form").serialize();
-        $.post("/pass_request/admin/requests/save_request_data", str, function(data) {
+        $.post("/admin/requests/save_request_data", str, function(data) {
                 $("#save_request_data_errs").html(data);
             });
 }
@@ -316,7 +316,7 @@ function SaveRequestData(){
 function SendRequest(exit)
 {
     var str = $("#add_form").serialize();
-    $.post('/pass_request/admin/requests/add_request_to_db_from_chief', 
+    $.post('admin/requests/add_request_to_db_from_chief',
           str,
           function(data){
               if (data=='long_request'){
@@ -326,9 +326,9 @@ function SendRequest(exit)
                 var id = parseInt(data) 
                 if (!isNaN(id)){
                     if (exit)
-                        window.location = '/pass_request/admin/requests';
+                        window.location = 'admin/requests';
                     else
-                        window.location = '/pass_request/admin/requests/show/' + id;
+                        window.location = 'admin/requests/show/' + id;
                 }
                 else
                     $("#error_messages").html(data);

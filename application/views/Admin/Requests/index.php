@@ -15,7 +15,7 @@
     <h6>Всього заявок: <?php echo $requests_count; ?></h6>
     <br />
     <?php if ($role_id === 1 or $role_id === 2 or $role_id === 3): ?>
-        <a class="btn btn-success" href="<?php echo base_url('/admin/requests/add') ?>"><i class="icon-plus icon-white"></i> Створити заявку</a>
+        <a class="btn btn-success" href="<?php echo base_url('admin/requests/add') ?>"><i class="icon-plus icon-white"></i> Створити заявку</a>
         <br /><br />
     <?php endif; ?>
         

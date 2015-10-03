@@ -77,7 +77,7 @@
                         $(this).hide();
                     });
                 // Запрос на получение фото и сохранение его в папку
-                $.get('/pass_request/admin/requests/make_photo', 
+                $.get('admin/requests/make_photo',
                         function(data){
                             var obj = jQuery.parseJSON(data);
                             $("#photo_img").attr("src", obj.url);

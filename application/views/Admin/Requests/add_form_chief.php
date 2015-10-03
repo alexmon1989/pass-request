@@ -29,7 +29,7 @@
                 <?php endif; ?>
                 <h6>Для оформлення заявки, будь-ласка, заповніть наступні поля:</h6>
                 <br />
-                <?php echo form_open('/admin/requests/add_request_to_db_from_chief', 'id="add_form" class="form-horizontal"'); ?>
+                <?php echo form_open('admin/requests/add_request_to_db_from_chief', 'id="add_form" class="form-horizontal"'); ?>
                     <fieldset>           
                         <div class="control-group">
                             <div class="req-div1">ПІБ відправника заявки</div> 

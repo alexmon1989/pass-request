@@ -1,13 +1,13 @@
 function SendAddData () {
         var str = $("#add_form").serialize();
-        $.post("/pass_request/admin/couriers/add", str, function(data) {
+        $.post("admin/couriers/add", str, function(data) {
             $("#add_form_info").html(data);
             });
     }
     
 function SendEditData () {
         var str = $("#edit_form").serialize();
-        $.post("/pass_request/admin/couriers/edit", str, function(data) {
+        $.post("admin/couriers/edit", str, function(data) {
             $("#edit_form_info").html(data);
             });
     }
@@ -33,7 +33,7 @@ function ajaxFileUpload()
     $.ajaxFileUpload
     (
         {
-            url:'/pass_request/admin/requests/doAjaxFileUpload',
+            url:'admin/requests/doAjaxFileUpload',
             secureuri:false,
             fileElementId:'photo',
             dataType: 'json',
@@ -71,9 +71,9 @@ function ajaxFileUpload()
  */
 function OldPhoto(){
     var photo_id = $("#photo_id").val();
-    var src = '/pass_request/images/photo_missed.jpeg';
+    var src = 'images/photo_missed.jpeg';
     if (photo_id != "0")
-        src = '/pass_request/photos/get_image/' + photo_id;
+        src = 'photos/get_image/' + photo_id;
     return src;
 }
 
@@ -91,7 +91,7 @@ $(function() {
     // Изображение
     var img_url = $("#photo_filename").val();
     if (img_url != ""){
-        img_url = "/pass_request/uploads/" + img_url;
+        img_url = "uploads/" + img_url;
         $("#photo_img").attr("src", img_url);
         $("#cancel_photo_btn_div").html('<br /><button id="cancel_photo_btn" onclick="DoNotUseThisPhoto()" class="btn btn-primary"><i class="icon-remove icon-white"></i> Не використовувати це фото</button>');
     }

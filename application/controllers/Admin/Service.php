@@ -65,6 +65,7 @@ class Service extends CI_Controller
         $this->layout->add_scripts('jquery-ui-1.8.21.min.js');
         $this->layout->add_scripts('ui.datepicker.js');
         $this->layout->add_scripts('ui-datepicker-uk.js');
+        $this->layout->add_scripts('jquery.combo.autocomplete.js');
 
         //$this->output->enable_profiler(TRUE);
     }

@@ -5,7 +5,7 @@
 */
 function UpdatePasses(id, selected_id){
     $(id).empty();    
-    $.post("/pass_request/admin/requests/get_free_passes/", function(data){
+    $.post("admin/requests/get_free_passes/", function(data){
             $(id).append('<option></option>');
             data = jQuery.parseJSON(data);
             for(var i = 0; i <= data.length - 1; i++){
@@ -26,7 +26,7 @@ function UpdatePasses(id, selected_id){
  */
 function DeletePass(id){
         var cct = $.cookie("csrf_cookie_name");
-    $.post("/pass_request/admin/passes/delete/", 
+    $.post("admin/passes/delete/",
           {
               'pass_id' : id,
               'csrf_secure': cct
@@ -43,7 +43,7 @@ function DeletePass(id){
  */
 function SendToNotIssued(id){
     var cct = $.cookie("csrf_cookie_name");
-    $.post("/pass_request/admin/passes/send_to_not_issued/", 
+    $.post("admin/passes/send_to_not_issued/",
           {
               'pass_id' : id,
               'csrf_secure': cct
@@ -60,7 +60,7 @@ function SendToNotIssued(id){
  */
 function SendToLost(id){
     var cct = $.cookie("csrf_cookie_name");
-    $.post("/pass_request/admin/passes/send_to_lost/", 
+    $.post("admin/passes/send_to_lost/",
           {
               'pass_id' : id,
               'csrf_secure': cct
@@ -80,7 +80,7 @@ function FillEditForm(id){
     $('#edit_form_pass_id').val('');
     $('#edit_form_room').val('');
     var cct = $.cookie("csrf_cookie_name");
-    $.post("/pass_request/admin/passes/get_pass_data/", 
+    $.post("admin/passes/get_pass_data/",
           {
               'pass_id' : id,
               'csrf_secure': cct
@@ -100,7 +100,7 @@ function FillEditForm(id){
  */
 function EditPass(){
     var cct = $.cookie("csrf_cookie_name");
-    $.post("/pass_request/admin/passes/edit/", 
+    $.post("admin/passes/edit/",
           {
               'pass_id' : $('#edit_form_pass_id').val(),
               'number' :  $('#new_number').val(),
@@ -117,7 +117,7 @@ function EditPass(){
 
 function AddPass(){
     var cct = $.cookie("csrf_cookie_name");
-    $.post("/pass_request/admin/passes/add/", 
+    $.post("admin/passes/add/",
           {
               'number' :  $('#number').val(),
               'room_id' : $('#room').val(),
@@ -133,7 +133,7 @@ function AddPass(){
 
 function AddPassFromRequestForm(){
     var cct = $.cookie("csrf_cookie_name");
-    $.post("/pass_request/admin/passes/add/", 
+    $.post("admin/passes/add/",
           {
               'number' :  $('#number').val(),
               'room_id' : $('#room').val(),

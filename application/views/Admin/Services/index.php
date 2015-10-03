@@ -144,7 +144,7 @@
                 </div>
                 <label for="form_add_pass_number" class="control-label">Номер пропуска</label>
                 <div class="controls">
-                    <select id="form_add_pass_number" name="form_add_pass_number" class="input-xlarge" style="width: 280px" onfocus="UpdatePasses('#form_add_pass_number')" onchange="this.blur();"></select>
+                    <select id="form_add_pass_number" name="form_add_pass_number" class="input-xlarge" style="width: 270px"></select>
                     <input type="hidden" id="form_add_employee_org_id" name="form_add_employee_org_id" class="input-xlarge" value="<?php echo set_value('form_add_employee_org_id'); ?>">
                 </div>
             </div>
@@ -182,6 +182,7 @@
 
 <script type="text/javascript">
         $(document).ready(function() {
+            UpdatePasses('#form_add_pass_number');
             $.datepicker.setDefaults(
                 $.extend($.datepicker.regional["uk"])
             );

@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html lang="ru">
   <head>
+    <base href="<?php echo site_url('') ?>">
     <meta charset="utf-8">
     <title><?php if (isset($page_title)) echo $page_title; ?></title>
     <noscript>

@@ -7,7 +7,7 @@ function UseAsTemplate()
     var cct = $.cookie("csrf_cookie_name");
     
     // Извлекаем данные по ID заявки
-    $.post('/pass_request/requests/get_request_json', 
+    $.post('requests/get_request_json',
           {
               'request_id' : request_id,
               'csrf_secure': cct
@@ -25,7 +25,7 @@ function UseAsTemplate()
               $.cookie("photo_id", data.photo_id, {path: "/"});
               
               // Переадресовываем на страницу оформления заявки
-              window.location = '/pass_request/requests/add_request';
+              window.location = 'requests/add_request';
           });
 }
 
@@ -73,7 +73,7 @@ function ajaxFileUpload()
     $.ajaxFileUpload
     (
         {
-            url:'/pass_request/requests/doAjaxFileUpload',
+            url:'requests/doAjaxFileUpload',
             secureuri:false,
             fileElementId:'photo',
             dataType: 'json',
@@ -105,7 +105,7 @@ $(function(){
     // Изображение
     var img_url = $("#photo_filename").val();
     if (img_url != ""){
-        img_url ="/pass_request/uploads/" + img_url;
+        img_url ="uploads/" + img_url;
         $("#photo_img").attr("src", img_url);
         $("#cancel_photo_btn_div").html('<br /><button id="cancel_photo_btn" class="btn btn-danger" onclick="DoNotUseThisPhoto(); return false"><i class="icon-remove icon-white"></i> Не використовувати це фото</button>');
     }
@@ -117,14 +117,14 @@ function DoNotUseThisPhoto()
     var request_id = $("#request_id").val();
     
     // Ajax запрос на получение id фото
-    $.get('/pass_request/requests/get_photo_id/' + request_id, 
+    $.get('requests/get_photo_id/' + request_id,
          function(data){
              var photo_id = data * 1;
              // Назначаем URL изображения
              if (photo_id != 0)
-                var img_url = '/pass_request/photos/get_image/' + photo_id;
+                var img_url = 'photos/get_image/' + photo_id;
              else
-                var img_url = '/pass_request/images/photo_missed.jpeg';
+                var img_url = 'images/photo_missed.jpeg';
              $("#photo_img").attr("src", img_url);
              // Очищаем photo_filename
              $('#photo_filename').val('');

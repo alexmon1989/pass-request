@@ -180,7 +180,7 @@
             }
             
             if ($("#photo_filename").val() == "" && $("#photo_id").val() != '0'){
-                $("#photo_img").attr("src", "/pass_request/photos/get_image/" + $("#photo_id").val());
+                $("#photo_img").attr("src", "photos/get_image/" + $("#photo_id").val());
             }
         });
 </script>
