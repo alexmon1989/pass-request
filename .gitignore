@@ -1,2 +1,4 @@
 .idea
 *.xls
+
+application/config/database.php
