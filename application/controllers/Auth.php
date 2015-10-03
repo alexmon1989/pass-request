@@ -117,8 +117,8 @@ class Auth extends CI_Controller {
         $login = $this->session->userdata('login');
         
         // Делаем страницу недоступной для тех, кто уже был в системе
-        if (!$this->auth_lib->is_first_time($login))
-            show_404();
+        /*if (!$this->auth_lib->is_first_time($login))
+            show_404();*/
         
         // Если POST-запрос
         if ($this->input->post() !== FALSE)
@@ -129,14 +129,19 @@ class Auth extends CI_Controller {
             // Массив правил валидации
             $config = array(
                 array(
-                    'field'   => 'password',
+                    'field'   => 'old_password',
+                    'label'   => 'Старий пароль',
+                    'rules'   => 'required|callback_oldpassword_check'
+                ),
+                array(
+                    'field'   => 'new_password',
                     'label'   => 'Новий пароль',
-                    'rules'   => 'required|min_length[5]|trim'
-                    ),                
+                    'rules'   => 'required|min_length[5]|callback_newpassword_check'
+                ),
                 array(
                     'field'   => 'confirm_password',
-                    'label'   => 'Підтвердження паролю',
-                    'rules'   => 'required|matches[password]|trim'
+                    'label'   => 'Підтвердження нового паролю',
+                    'rules'   => 'required|matches[new_password]'
                     ),
                 );
             
@@ -146,20 +151,64 @@ class Auth extends CI_Controller {
                 // Меняем пароль пользователя
                 $user_id = $this->auth_lib->get_user_id_by_login($login);
                 $this->load->model('auth_model');
-                $this->auth_model->change_password($user_id, md5($this->input->post('password')));
+                $this->auth_model->change_password($user_id, md5($this->input->post('new_password')));
                 
                 $this->session->set_flashdata(array('message' => 'Ваш пароль було успішно змінено!'));
                 
                 // Устанавливаем дату последнего посещения
                 $this->auth_lib->change_last_visit_date($login);
-                
-                // Переадресовывем его
-                redirect('requests');
+
+                // Если пароль менялся в первый раз, то переадресовываем на старт. страницу
+                if ($this->auth_lib->is_first_time($this->session->userdata('login')))
+                {
+                    redirect('requests');
+                } else
+                {
+                    redirect('requests/settings');
+                }
             }
             else            
                 $this->layout->add_content(array('errors' => validation_errors()));
         }
         $this->layout->set_page_title('Зміна паролю');
         $this->layout->view('change_pass');
+    }
+
+    /**
+     * Валидация старого пароля
+     *
+     * @param $str
+     * @return bool
+     */
+    public function oldpassword_check($str)
+    {
+        if (!$this->auth_lib->check_pass_db($str))
+        {
+            $this->form_validation->set_message('oldpassword_check', 'У поле <strong>"%s"</strong> введено неправильний старий пароль');
+            return FALSE;
+        }
+
+        return TRUE;
+    }
+
+    /**
+     * Валидация нового пароля (исключает повторение старого пароля)
+     *
+     * @param $str
+     * @return bool
+     */
+    public function newpassword_check($str)
+    {
+        $this->load->model('Users_model');
+        $login = $this->session->userdata('login');
+        $user = $this->Users_model->get_user_by_login($login);
+
+        if ($user->password == md5($str))
+        {
+            $this->form_validation->set_message('newpassword_check', 'У поле <strong>"%s"</strong> потрібно ввести пароль, який не використовувався раніше');
+            return FALSE;
+        }
+
+        return TRUE;
     }
 }

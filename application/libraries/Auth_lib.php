@@ -27,7 +27,7 @@ class Auth_lib
      *
      * @param $login логин пользователя
      * @param $password пароль пользователя
-     * @param $type тип пользователя (пользователь(user), охранник(security), администратор (administrator))
+     * @param $md5_pass
      *
      * @return bool результат авторизации
      */
@@ -43,22 +43,21 @@ class Auth_lib
         $user = $CI->Users_model->get_user_by_login($login);
         
         // Если пользователя с логином $login не существует
-        if (empty($user) === TRUE)
+        if (!empty($user) && !$user->deleted) {
+            // Зашифрован ли пароль?
+            if ($md5_pass === FALSE)
+                $password = md5($password);
+
+            // Проверяем правильно ли введён пароль
+            if ($user->password === $password) {
+                // Записываем данные о входе в сессию и в куки
+                $this->save_auth_data($user);
+                return TRUE;
+            } else
+                return FALSE;
+        } else {
             return FALSE;
-        
-        // Зашифрован ли пароль?
-        if ($md5_pass === FALSE)
-            $password = md5($password);
-        
-        // Проверяем правильно ли введён пароль
-        if ($user->password === $password)
-        {
-            // Записываем данные о входе в сессию и в куки
-            $this->save_auth_data($user);            
-            return TRUE;
         }
-        else
-            return FALSE;
     }
     
     /**
@@ -167,23 +166,41 @@ class Auth_lib
             }
             return FALSE;
         }
-    }        
-    
+    }
+
     /**
      * Проверка правильности ввода своего пароля
-     * 
+     *
      * @param type $password вводимый пароль
-     * 
+     *
      * @return bool результат сравнения
      */
     public function check_pass($password)
     {
         $pass_from_cookie = $_COOKIE['password'];
-        
+
         if (md5($password) === $pass_from_cookie)
             return TRUE;
         else
             return FALSE;
+    }
+
+    /**
+     * Проверка правильности своего пароля из БД
+     *
+     * @param type $password вводимый пароль
+     *
+     * @return bool результат сравнения
+     */
+    public function check_pass_db($password)
+    {
+        // Суперобъект CodeIgniter
+        $CI = &get_instance();
+        $CI->load->model('Users_model');
+        $login = $CI->session->userdata('login');
+        $user = $CI->Users_model->get_user_by_login($login);
+
+        return md5($password) == $user->password;
     }
     
     /**

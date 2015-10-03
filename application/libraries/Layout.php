@@ -570,6 +570,10 @@ class Layout
                 'title' => 'Мої заявки', 
             ),
             2 => array(
+                'uri' => 'settings',
+                'title' => 'Налаштування',
+            ),
+            3 => array(
                 'uri' => 'logout',
                 'title' => 'Вихід',                
             ),
@@ -598,6 +602,10 @@ class Layout
                 'title' => 'Кур\'єри', 
             ),
             4 => array(
+                'uri' => 'settings',
+                'title' => 'Налаштування',
+            ),
+            5 => array(
                 'uri' => 'logout',
                 'title' => 'Вихід',                
             ),

@@ -2,7 +2,7 @@
 <div id="maindiv" class="span12">
 <h3>Змінити пароль</h3>
     <br />
-<?php echo form_open('auth/change_password', 'class="form-horizontal"'); ?>
+<?php echo form_open('auth/change_pass', 'class="form-horizontal"'); ?>
 <fieldset>
     <?php if (FALSE !== $this->session->flashdata('message')): ?>
     <script type="text/javascript">

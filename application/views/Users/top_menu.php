@@ -20,7 +20,7 @@
             <![endif]>
                     <ul class="nav">
                         <?php foreach ($top_menu_list as $top_menu_item): ?>
-                            <li class="<?php echo ($this->uri->segment(2) == $top_menu_item['uri']) ? 'active' : ''; ?>">
+                            <li class="<?php echo ($this->uri->segment(2) == $top_menu_item['uri'] || $this->uri->segment(1) == $top_menu_item['uri']) ? 'active' : ''; ?>">
                                 <a href="<?php echo base_url('requests/' . $top_menu_item['uri']); ?>"><?php echo $top_menu_item['title']; ?></a>
                             </li>
                         <?php endforeach; ?>

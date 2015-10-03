@@ -33,13 +33,13 @@ class Requests extends CI_Controller
         
         // Проверяем, зашел ли человек впервые? 
         // (и переадресовываем его на страницу смены пароля)
-        if ($this->auth_lib->is_first_time($this->session
-                                            ->userdata('login')))
+        if ($this->auth_lib->is_first_time($this->session->userdata('login')))
+        {
             redirect('auth/change_pass');
-        
+        }
+
         // Устанавливаем дату последнего посещения
-        $this->auth_lib->change_last_visit_date($this->session
-                                                ->userdata('login'));
+        $this->auth_lib->change_last_visit_date($this->session->userdata('login'));
         
         // Библиотека вывода
         $this->load->library('Layout');
@@ -161,11 +161,24 @@ class Requests extends CI_Controller
                 break;
             }
 
+            case 'patent_agents':
+            {
+                redirect('patent_agents');
+                break;
+            }
+
+            case 'couriers':
+            {
+                redirect('couriers');
+                break;
+            }
+
             case 'settings':
             {
                 $this->layout->set_page_title('Налаштування');
+                $page = 'change_pass';
                 break;
-            }
+        }
 
             default:
                 break;
@@ -181,6 +194,16 @@ class Requests extends CI_Controller
     function settings()
     {
         $this->index('settings');
+    }
+
+    function patent_agents()
+    {
+        $this->index('patent_agents');
+    }
+
+    function couriers()
+    {
+        $this->index('couriers');
     }
 
     /**

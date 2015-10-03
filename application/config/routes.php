@@ -48,10 +48,9 @@ $route['admin/contracts/(:num)'] = 'admin/contracts/index/$1';
 $route['admin/temp_requests/(:num)'] = 'admin/temp_requests/index/$1';
 $route['admin/forget_passes/(:num)'] = 'admin/forget_passes/index/$1';
 
-$route['admin/logout'] = 'auth/logout';
+$route['requests/settings'] = 'auth/change_pass';
 
-$route['requests/patent_agents'] = 'patent_agents/index';
-$route['requests/couriers'] = 'couriers/index';
+$route['admin/logout'] = 'auth/logout';
 
 
 
