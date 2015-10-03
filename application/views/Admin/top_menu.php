@@ -14,16 +14,7 @@
               <div style="margin-left: 35%;">  
                     <ul class="nav">
                     <?php foreach ($top_menu_list as $key => $top_menu_item): ?>
-                        <li id="<?php echo 'menu_item_' . $key; ?>" 
-                            <?php 
-                                // Назначение "активного" меню
-                                if ('admin/' . $top_menu_item['uri'] === uri_string())
-                                    echo 'class="active"';
-                                elseif ('admin' === uri_string() and $top_menu_item['uri'] === 'requests')
-                                    echo 'class="active"';  
-                                elseif (strpos(uri_string(), 'admin/requests/show') !== FALSE and $top_menu_item['uri'] === 'requests')
-                                    echo 'class="active"';
-                            ?>>
+                        <li id="<?php echo 'menu_item_' . $key; ?>" class="<?php echo ($this->uri->segment(2) == $top_menu_item['uri']) ? 'active' : ''; ?>">
                             <?php if (isset($top_menu_item['children'])): ?>
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="<?php echo 'anchor_item_' . $key; ?>"><?php echo $top_menu_item['title']; ?> <b class="caret"></b></a>
                                 <script>

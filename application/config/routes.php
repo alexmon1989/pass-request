@@ -38,18 +38,20 @@
 |
 */
 
-$route['default_controller'] = "Requests";
+$route['default_controller'] = 'Requests';
 $route['404_override'] = '';
 
-$route['requests/logout'] = "auth/logout";
+$route['requests/logout'] = 'auth/logout';
 
-$route['admin/requests/(:num)'] = "admin/requests/requests/$1";
-$route['admin/contracts/(:num)'] = "admin/contracts/index/$1";
+$route['admin/requests/(:num)'] = 'admin/requests/requests/$1';
+$route['admin/contracts/(:num)'] = 'admin/contracts/index/$1';
+$route['admin/temp_requests/(:num)'] = 'admin/temp_requests/index/$1';
+$route['admin/forget_passes/(:num)'] = 'admin/forget_passes/index/$1';
 
-$route['admin/logout'] = "auth/logout";
+$route['admin/logout'] = 'auth/logout';
 
-$route['requests/patent_agents'] = "patent_agents/index";
-$route['requests/couriers'] = "couriers/index";
+$route['requests/patent_agents'] = 'patent_agents/index';
+$route['requests/couriers'] = 'couriers/index';
 
 
 

@@ -76,6 +76,11 @@ class Temp_requests extends CI_Controller
         //$this->output->enable_profiler(TRUE);
     }
 
+    /**
+     * Действие для отображения списка временных заявок
+     *
+     * @param int $page_num
+     */
     public function index($page_num = 1)
     {
         // Защита от дурака
