@@ -154,13 +154,14 @@ class Auth extends CI_Controller {
                 $this->auth_model->change_password($user_id, md5($this->input->post('new_password')));
                 
                 $this->session->set_flashdata(array('message' => 'Ваш пароль було успішно змінено!'));
-                
+
+                $first_time =$this->auth_lib->is_first_time($this->session->userdata('login'));
+
                 // Устанавливаем дату последнего посещения
                 $this->auth_lib->change_last_visit_date($login);
 
                 // Если пароль менялся в первый раз, то переадресовываем на старт. страницу
-                if ($this->auth_lib->is_first_time($this->session->userdata('login')))
-                {
+                if ($first_time) {
                     redirect('requests');
                 } else
                 {
